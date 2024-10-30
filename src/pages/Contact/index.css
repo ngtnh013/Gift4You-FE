@@ -1,0 +1,90 @@
+.get-in-touch {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .get-in-touch h1 {
+    font-weight: 550;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .get-in-touch p {
+    margin-bottom: 20px;
+  }
+  .pcontent {
+    font-size: 20.5px;
+    color: gray;
+  }
+  .contact-container {
+    display: flex;
+    justify-content: space-between; /* Aligns the items left and right */
+  }
+  
+  .contact-info {
+    flex: 1; /* Allows it to take up available space */
+    margin-right: 20px; /* Adds space between contact info and form */
+  }
+  
+  .info-item {
+    margin: 10px 0; /* Adds vertical space between items */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+  }
+  .info-item i {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .info-item h2 {
+    font-size: 1.5rem;
+  }
+  
+  .info-item p {
+    margin: 5px 0;
+  }
+  
+  .contact-form {
+    flex: 1; /* Allows the form to take up the remaining space */
+    display: flex;
+    flex-direction: column;
+  }
+  .pdess {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .contact-form input {
+    padding: 10px;
+    margin: -5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .contact-form textarea {
+    padding: 10px;
+    margin: -5px 0;
+    border: 1px solid #ccc;
+    height: 133px;
+    border-radius: 5px;
+  }
+  
+  .contact-form button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4a3c2e;
+    color: white;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .contact-form button:hover {
+    background-color: #3a3227;
+  }
+  
