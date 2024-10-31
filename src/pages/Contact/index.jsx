@@ -1,8 +1,11 @@
 import { FaClock } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import FooterTopSection from "../../components/FooterTopSection";
 function ContactPage() {
-    return ( <div className="max-w-3xl mx-auto p-5 text-center font-sans">
+    return ( 
+    <div>
+    <div className="max-w-3xl mx-auto p-5 text-center font-sans">
         <h1 className="font-semibold text-4xl mb-3">Get In Touch With Us</h1>
         <p className="text-lg text-gray-500 mb-5">
             For More Information About Our Product & Services. Please Feel Free To Drop Us An Email.
@@ -71,7 +74,9 @@ function ContactPage() {
                 </button>
             </form>
         </div>
-    </div> );
+    </div> 
+    <FooterTopSection />
+    </div>);
 }
 
 export default ContactPage;
