@@ -1,4 +1,3 @@
-version: '3'
 services:
   front-end-app:
     build:
@@ -7,8 +6,9 @@ services:
     ports:
       - '5173:5173'
     volumes:
-      - .:/app  # Gắn thư mục hiện tại (chứa mã nguồn) vào thư mục /app trong container
-      - /app/node_modules  # Tránh ghi đè thư mục node_modules trong container
+      - .:/app
+      - /app/node_modules
     environment:
-      - NODE_VERSION=20.14.0  # Biến môi trường cho ARG trong Dockerfile
+      - NODE_VERSION=20.14.0
+      - NODE_ENV=development
     command: ["npm", "run", "dev"]
