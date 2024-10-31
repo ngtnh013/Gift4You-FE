@@ -1,5 +1,5 @@
 function ShopPage() {
-    return ( <div>Shop Page</div> );
+    return ( <div>Shop Page lam di lam di</div> );
 }
 
 export default ShopPage;
