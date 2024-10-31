@@ -1,5 +1,8 @@
+import ProductDetailForm from "../../components/ProductDetailForm";
 function ShopPage() {
-    return ( <div>Shop Page lam di lam di</div> );
+    return ( <div>
+                <ProductDetailForm />
+            </div> );
 }
 
 export default ShopPage;
