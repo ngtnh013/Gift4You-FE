@@ -2,6 +2,7 @@ import characterImage from '../../assets/character.png';
 import { FaLinkedin } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";
 import { FaGlobe } from "react-icons/fa";
+import ContactInfo from "../../components/ContactInfo";
 const teamMembers = [
     {
       name: 'John Doe',
@@ -95,6 +96,7 @@ function AboutPage() {
             ))}
           </div>
         </section>
+        <ContactInfo/>
       </div>
     );
 }

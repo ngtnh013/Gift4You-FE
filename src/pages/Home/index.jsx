@@ -1,4 +1,6 @@
 import { FaChevronRight } from "react-icons/fa";
+import FooterTopSection from "../../components/FooterTopSection";
+import ContactInfo from "../../components/ContactInfo";
 function HomePage() {
     return ( <div className="font-sans flex flex-col min-h-screen w-full">
         <section className="w-full bg-orange-100 flex">
@@ -64,6 +66,8 @@ function HomePage() {
             </button>
           </div>
         </section>
+        <ContactInfo/>
+        <FooterTopSection />
     </div> );
 }
 
