@@ -1,16 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0',  // Lắng nghe trên tất cả các địa chỉ IP
-    port: 5173,       // Cổng mà Vite sẽ chạy
-    strictPort: true, // Ngăn không cho Vite chuyển sang cổng khác nếu cổng đã chiếm
+    host: "0.0.0.0",
+    port: 5173, 
+    strictPort: true, 
     watch: {
-      usePolling: true, // Bật sử dụng polling để phát hiện thay đổi
-      interval: 100,    // Tùy chọn thời gian kiểm tra
+      usePolling: true, 
+      interval: 100, 
+    },
+    proxy: {
+      "/api": {
+        target: "https://gift-4-you.onrender.com/api/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "")
+      },
     },
   },
-})
+});
