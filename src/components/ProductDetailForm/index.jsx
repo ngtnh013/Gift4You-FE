@@ -3,6 +3,8 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 const ProductDetailForm = () => {
+
+
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => setQuantity(quantity + 1);

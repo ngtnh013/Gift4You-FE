@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavItem from "./NavItem";
 import { useLocation } from "react-router-dom";
 import UserMenu from "./UserMenu";
+import { useAuth } from "../AuthProvider";
 
 function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
+  const { auth } = useAuth();
 
   const items = [
     {
@@ -26,15 +28,6 @@ function NavBar() {
     },
   ];
 
-  const handleLogin = () => {
-    // Giả lập việc đăng nhập
-    setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    // Giả lập việc đăng xuất
-    setIsLoggedIn(false);
-  };
 
   return (
     <nav className="grid grid-cols-12 p-4 items-center">
@@ -53,7 +46,7 @@ function NavBar() {
         </ul>
       </div>
       <div className="col-span-3">
-          <UserMenu isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout}/>
+          <UserMenu isLoggedIn={!!auth}/>
       </div>
     </nav>
   );

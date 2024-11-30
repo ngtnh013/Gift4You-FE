@@ -1,6 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import LoginPageImage from "../../assets/LoginPageImage.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../components/AuthProvider";
 
 function LoginPage() {
   const {
@@ -9,9 +12,39 @@ function LoginPage() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Xử lý đăng nhập ở đây (ví dụ: gọi API)
+  const {login} = useAuth();
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+
+      const formData = {
+        phoneNumber: data.phoneNumber.trim(),
+        password: data.password.trim(),
+      }
+
+      console.log(formData);
+
+      const response = await axios.post('/api/v1/auth/login', {
+        phoneNumber: data.phoneNumber.trim(),
+        password: data.password.trim(),
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      })
+
+      // Extract response data
+      const { accessToken} = response.data.data;
+
+      login({accessToken}, navigate);
+
+    } catch (error) {
+      console.error("Error logging in:", error.response?.data || error.message);
+      alert("Login failed. Please check your credentials.");
+    }
   };
 
   return (
@@ -23,7 +56,6 @@ function LoginPage() {
             backgroundImage: `url(${LoginPageImage})`,
           }}
         >
-          {/* Overlay sáng */}
           <div className="absolute inset-0 bg-white opacity-20"></div>
         </div>
       </div>
@@ -45,23 +77,20 @@ function LoginPage() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <input
-                type="email"
-                {...register("email", {
-                  required: "Email is required",
+                type="text"
+                {...register("phoneNumber", {
+                  required: "Phone number is required",
                   pattern: {
-                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "Invalid email address",
+                    value: /^[0-9]{10}$/,
+                    message: "Invalid phone number",
                   },
                 })}
-                className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                placeholder="Email or Phone Number"
-                style={{
-                  backgroundColor: "#FFE1BB",
-                }}
+                className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                placeholder="Phone Number"
               />
-              {errors.email && (
+              {errors.phoneNumber && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
+                  {errors.phoneNumber.message}
                 </p>
               )}
             </div>
@@ -76,11 +105,8 @@ function LoginPage() {
                     message: "Password must be at least 6 characters",
                   },
                 })}
-                className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="Password"
-                style={{
-                  backgroundColor: "#FFE1BB",
-                }}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">

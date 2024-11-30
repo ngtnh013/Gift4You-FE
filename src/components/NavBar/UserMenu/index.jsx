@@ -3,19 +3,22 @@ import { FaRegUser } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom"; 
+import { useAuth } from "../../AuthProvider";
 
-function UserMenu({ isLoggedIn, onLogin, onLogout }) {
+function UserMenu({ isLoggedIn}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const {logout} = useAuth();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleLogout = () => {
-    onLogout();
-    navigate('/'); 
+    logout(navigate);
+    navigate("/")
   };
+
 
   return (
     <div className="flex justify-center space-x-4">
