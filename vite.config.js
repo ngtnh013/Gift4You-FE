@@ -5,17 +5,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: "0.0.0.0",
-    port: 5173, 
-    strictPort: true, 
+    port: 5173,
+    strictPort: true,
     watch: {
-      usePolling: true, 
-      interval: 100, 
+      usePolling: true,
+      interval: 100,
     },
     proxy: {
       "/api": {
         target: "https://gift-4-you.onrender.com/api/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "")
+        rewrite: (path) => path.replace(/^\/api/, ""), 
       },
     },
   },
