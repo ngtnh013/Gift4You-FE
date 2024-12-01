@@ -13,14 +13,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData, navigate) => {
     console.log("User logged in:", userData);
-    setAuth(userData);
+    setAuth({ accessToken: userData.accessToken, userId: userData.id });
     localStorage.setItem("accessToken", userData.accessToken);
+    localStorage.setItem("userId", userData.id);
     navigate("/shop");
   };
 
   const logout = (navigate) => {
     setAuth(null);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
 

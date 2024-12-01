@@ -36,10 +36,10 @@ function LoginPage() {
         withCredentials: true
       })
 
-      // Extract response data
-      const { accessToken} = response.data.data;
 
-      login({accessToken}, navigate);
+      // Extract response data
+      const { accessToken, id } = response.data.data; // Include userId
+    login({ accessToken, id }, navigate);
 
     } catch (error) {
       console.error("Error logging in:", error.response?.data || error.message);

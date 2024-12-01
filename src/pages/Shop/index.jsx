@@ -21,6 +21,7 @@ const ItemCard = ({ item, onClick }) => {
 
 const ShopPage = () => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
 
@@ -48,10 +49,16 @@ const ShopPage = () => {
         }
       } catch (error) {
         console.error("Error fetching items:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchItems();
   }, []);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
   // Navigate to Product Detail Page
   const handleItemClick = (itemId) => {
