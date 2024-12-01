@@ -5,51 +5,89 @@ import { GoHeart } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom"; 
 import { useAuth } from "../../AuthProvider";
 
-function UserMenu({ isLoggedIn}) {
+function UserMenu({ isLoggedIn }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const {logout} = useAuth();
+  const { logout } = useAuth();
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen((prev) => !prev);
   };
+
+  const closeDropdown = () => setIsDropdownOpen(false);
 
   const handleLogout = () => {
     logout(navigate);
-    navigate("/")
+    navigate("/");
   };
-
 
   return (
     <div className="flex justify-center space-x-4">
       {isLoggedIn ? (
         <>
-          <span 
-            className="text-xl cursor-pointer relative" 
-            onMouseEnter={toggleDropdown} 
-            onMouseLeave={toggleDropdown}
-          >
-            <FaRegUser />
+          {/* Dropdown menu */}
+          <div className="relative">
+            <span
+              className="text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition-colors"
+              onClick={toggleDropdown}
+            >
+              <FaRegUser />
+            </span>
             {isDropdownOpen && (
-              <div className="absolute bg-white text-black p-2 rounded shadow-md">
-                <Link to="/profile" className="block">Profile</Link>
-                <a href="#" className="block" onClick={handleLogout}>Logout</a>
+              <div className="absolute bg-white text-black p-2 rounded shadow-md right-0 mt-2">
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 rounded hover:bg-gray-100 hover:text-blue-600 transition-colors"
+                  onClick={closeDropdown}
+                >
+                  Profile
+                </Link>
+                <button
+                  className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 hover:text-blue-600 transition-colors"
+                  onClick={() => {
+                    handleLogout();
+                    closeDropdown();
+                  }}
+                >
+                  Logout
+                </button>
               </div>
             )}
-          </span>
-          <Link to="/special-function" className="text-xl cursor-pointer">
-            <GoHeart />   
-          </Link>
-          <Link to="/cart" className="text-xl cursor-pointer">
-            <BsCart3 /> 
+          </div>
+
+          {/* Favorite icon */}
+          {/* <Link
+            to="/special-function"
+            className="text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition-colors"
+          >
+            <GoHeart />
+          </Link> */}
+
+          {/* Cart icon */}
+          <Link
+            to="/cart"
+            className="text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition-colors"
+          >
+            <BsCart3 />
           </Link>
         </>
-      ) :  (
+      ) : (
         <>
-          <Link to="/login" className="px-4 py-2 rounded-full bg-white text-black hover:border transition-colors">Login</Link>
-          <Link to="/register" className="px-4 py-2 rounded-full bg-white text-black hover:border transition-colors">Register</Link>
+          {/* Login/Register links */}
+          <Link
+            to="/login"
+            className="px-4 py-2 rounded-full bg-white text-black hover:border hover:bg-gray-100 transition-colors"
+          >
+            Login
+          </Link>
+          <Link
+            to="/register"
+            className="px-4 py-2 rounded-full bg-white text-black hover:border hover:bg-gray-100 transition-colors"
+          >
+            Register
+          </Link>
         </>
-      )}    
+      )}
     </div>
   );
 }
