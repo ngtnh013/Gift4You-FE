@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
 import ItemCard from "../../components/ItemCard";
-import { FaGift } from "react-icons/fa"; // Example icon, you can change this to any other icon
+import { FaGift } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
@@ -14,12 +14,11 @@ const ShopPage = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
 
-   // Check if the user is logged in
-   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = auth?.accessToken;
     if (!token) {
-      // Redirect to login if not logged in
-      navigate("/login");
+      navigate("/login"); // Redirect to login if not logged in
     }
   }, [navigate]);
 
@@ -90,6 +89,17 @@ const ShopPage = () => {
         <FaGift className="mr-2" />
         Gift Combos
       </h1>
+
+      {/* Custom a Gift Button */}
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => navigate("/custom-gift")}
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Custom a Gift
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {templates.length > 0 ? (
           templates.map((template) => (

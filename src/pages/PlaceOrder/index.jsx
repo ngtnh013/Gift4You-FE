@@ -42,9 +42,9 @@ const PlaceOrder = () => {
     ];
 
     const { state } = useLocation();
-    const { template, selectedImageKey } = state;
+    const { template, selectedImageIndex } = state;
   
-    const selectedImage = images[selectedImageKey];
+    const selectedImage = images[selectedImageIndex];
 
   const { auth } = useAuth(); 
   const navigate = useNavigate(); 

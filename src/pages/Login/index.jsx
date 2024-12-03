@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/AuthProvider";
 
 function LoginPage() {
-
   const API_URL = import.meta.env.VITE_API_URL;
 
-
-  const [loading, setLoading] = useState(false);  // Track loading state
+  const [loading, setLoading] = useState(false); // Track loading state
   const {
     register,
     handleSubmit,
@@ -18,42 +16,25 @@ function LoginPage() {
   } = useForm();
 
   const { login } = useAuth();
-
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
-      setLoading(true);  // Set loading state to true before the API call
+      setLoading(true); // Set loading state to true before the API call
 
       const formData = {
         phoneNumber: data.phoneNumber.trim(),
         password: data.password.trim(),
       };
 
-      console.log(formData);
 
-      const response = await axios.post(
-        `${API_URL}/v1/auth/login`,
-        {
-          phoneNumber: data.phoneNumber.trim(),
-          password: data.password.trim(),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-
-      // Extract response data
-      const { accessToken, id } = response.data.data;
-      login({ accessToken, id }, navigate);
+      // Use the login function from AuthProvider to store the user info
+      login(formData, navigate); // Login and navigate to /shop
     } catch (error) {
       console.error("Error logging in:", error.response?.data || error.message);
       alert("Login failed. Please check your credentials.");
     } finally {
-      setLoading(false);  // Reset loading state after the request completes
+      setLoading(false); // Reset loading state after the request completes
     }
   };
 
@@ -77,12 +58,8 @@ function LoginPage() {
         }}
       >
         <div className="w-3/4 max-w-md">
-          <h2 className="font-bold text-2xl text-left mb-2">
-            Log in to Gift4You
-          </h2>
-          <h3 className="text-gray-600 text-left mb-6">
-            Enter your details below
-          </h3>
+          <h2 className="font-bold text-2xl text-left mb-2">Log in to Gift4You</h2>
+          <h3 className="text-gray-600 text-left mb-6">Enter your details below</h3>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
@@ -91,7 +68,7 @@ function LoginPage() {
                 {...register("phoneNumber", {
                   required: "Phone number is required",
                   pattern: {
-                    value: /^[0-9]{10}$/,
+                    value: /^[0-9]{10}$/, // 10-digit phone number validation
                     message: "Invalid phone number",
                   },
                 })}
@@ -99,9 +76,7 @@ function LoginPage() {
                 placeholder="Phone Number"
               />
               {errors.phoneNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.phoneNumber.message}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
               )}
             </div>
 
@@ -119,18 +94,18 @@ function LoginPage() {
                 placeholder="Password"
               />
               {errors.password && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.password.message}
-                </p>
+                <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
               )}
             </div>
 
             <button
               type="submit"
-              className={`w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-500'}`}
-              disabled={loading}  // Disable button while loading
+              className={`w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90 ${
+                loading ? "bg-gray-500 cursor-not-allowed" : "bg-red-500"
+              }`}
+              disabled={loading} // Disable button while loading
             >
-              {loading ? "Loading..." : "Log In"}  {/* Show Loading text when loading */}
+              {loading ? "Loading..." : "Log In"} {/* Show Loading text when loading */}
             </button>
           </form>
         </div>

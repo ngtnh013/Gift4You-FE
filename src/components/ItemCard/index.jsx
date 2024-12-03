@@ -95,11 +95,11 @@ const ItemCard = ({ item }) => {
 
   const handlePlaceOrder = () => {
     // Pass item data and imageUrl to the PlaceOrder component
-    const selectedImageKey = "gift1"; // Replace with logic to select an image dynamically
+    const selectedImageIndex = randomImages.indexOf(imageUrl); // Replace with logic to select an image dynamically
     navigate("/place-order", {
       state: {
         template: item,
-        selectedImageKey,
+        selectedImageIndex,
       },
     });
   };
