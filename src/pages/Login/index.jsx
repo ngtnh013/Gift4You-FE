@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginPageImage from "../../assets/LoginPageImage.png";
 import axios from "axios";
@@ -6,44 +6,50 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/AuthProvider";
 
 function LoginPage() {
+  const [loading, setLoading] = useState(false);  // Track loading state
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);  // Set loading state to true before the API call
 
       const formData = {
         phoneNumber: data.phoneNumber.trim(),
         password: data.password.trim(),
-      }
+      };
 
       console.log(formData);
 
-      const response = await axios.post('/api/v1/auth/login', {
-        phoneNumber: data.phoneNumber.trim(),
-        password: data.password.trim(),
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await axios.post(
+        "/api/v1/auth/login",
+        {
+          phoneNumber: data.phoneNumber.trim(),
+          password: data.password.trim(),
         },
-        withCredentials: true
-      })
-
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
       // Extract response data
-      const { accessToken, id } = response.data.data; // Include userId
-    login({ accessToken, id }, navigate);
-
+      const { accessToken, id } = response.data.data;
+      login({ accessToken, id }, navigate);
     } catch (error) {
       console.error("Error logging in:", error.response?.data || error.message);
       alert("Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);  // Reset loading state after the request completes
     }
   };
 
@@ -117,10 +123,10 @@ function LoginPage() {
 
             <button
               type="submit"
-              className="w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "#DB4444" }}
+              className={`w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-500'}`}
+              disabled={loading}  // Disable button while loading
             >
-              Log In
+              {loading ? "Loading..." : "Log In"}  {/* Show Loading text when loading */}
             </button>
           </form>
         </div>

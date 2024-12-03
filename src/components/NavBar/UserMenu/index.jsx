@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { BsCart3 } from "react-icons/bs";
-import { GoHeart } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom"; 
-import { useAuth } from "../../AuthProvider";
+import { useAuth } from "../../AuthProvider";  // Use useAuth hook here
 
-function UserMenu({ isLoggedIn }) {
+function UserMenu() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { auth, logout } = useAuth();  // Access auth and logout from context
   const navigate = useNavigate();
-  const { logout } = useAuth();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -18,12 +17,12 @@ function UserMenu({ isLoggedIn }) {
 
   const handleLogout = () => {
     logout(navigate);
-    navigate("/");
+    navigate("/");  // Navigate to home page after logout
   };
 
   return (
     <div className="flex justify-center space-x-4">
-      {isLoggedIn ? (
+      {auth?.accessToken ? (  // Check if the user is logged in
         <>
           {/* Dropdown menu */}
           <div className="relative">
@@ -55,17 +54,9 @@ function UserMenu({ isLoggedIn }) {
             )}
           </div>
 
-          {/* Favorite icon */}
-          {/* <Link
-            to="/special-function"
-            className="text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition-colors"
-          >
-            <GoHeart />
-          </Link> */}
-
           {/* Cart icon */}
           <Link
-            to="/cart"
+            to="/view-my-order"
             className="text-xl cursor-pointer flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition-colors"
           >
             <BsCart3 />

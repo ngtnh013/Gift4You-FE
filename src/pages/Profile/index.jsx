@@ -68,7 +68,6 @@ function ProfilePage() {
 
       setUserData(response.data.data); // Update local data
       setIsEditing(false); // Exit edit mode
-      alert("Profile updated successfully.");
     } catch (err) {
       console.error("Error updating profile:", err.response?.data || err.message);
       alert("Failed to update profile.");
@@ -132,7 +131,7 @@ function ProfilePage() {
               className={`text-gray-800 capitalize ${
                 userData.status === "active" ? "text-green-500" : "text-red-500"
               }`}
-            >
+            > 
               {userData.status}
             </span>
           </div>

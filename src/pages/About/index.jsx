@@ -5,50 +5,58 @@ import { FaGlobe } from "react-icons/fa";
 import ContactInfo from "../../components/ContactInfo";
 const teamMembers = [
     {
-      name: 'John Doe',
+      name: 'Nguyễn Tuấn Anh',
       title: 'Founder & CEO',
-      description: 'John is the visionary behind Gift4U, leading the team with passion.',
+      description: 'Tuấn Anh is the visionary behind Gift4U, leading the team with passion.',
       linkedin: '#',
       email: 'mailto:john@example.com', // Updated to be functional
       website: '#',
       // image: 'path/to/john_image.png', // Individual image
     },
     {
-      name: 'Jane Smith',
-      title: 'Chief Marketing Officer',
-      description: 'Jane drives our marketing strategies and ensures customer satisfaction.',
+      name: 'Trần Thị Thanh Thảo',
+      title: 'Founder & Chief Marketing Officer',
+      description: 'Thanh Thảo drives our marketing strategies and ensures customer satisfaction.',
       linkedin: '#',
       email: 'mailto:jane@example.com', // Updated to be functional
       website: '#',
       // image: 'path/to/jane_image.png', // Individual image
     },
     {
-      name: 'Mike Johnson',
-      title: 'Lead Developer',
-      description: 'Mike is the technical genius behind our platform.',
+      name: 'Lê Tuấn Anh',
+      title: 'Founder & Lead Developer',
+      description: 'Tuấn Anh is the technical genius behind our platform.',
       linkedin: '#',
       email: '#',
       website: '#',
       // image: 'path/to/jane_image.png',
     },
     {
-        name: 'Sarah Lee',
-        title: 'UX/UI Designer',
-        description: 'Sarah designs user-friendly interfaces and enhances user experience.',
+        name: 'Phạm Gia Huy',
+        title: 'Founder & UX/UI Designer',
+        description: 'Gia Huy designs user-friendly interfaces and enhances user experience.',
         linkedin: '#',
         email: 'mailto:sarah@example.com', // Updated to be functional
         website: '#',
         // image: 'path/to/sarah_image.png', // Individual image
     },
     {
-        name: 'David Kim',
-        title: 'Product Manager',
-        description: 'David oversees product development and ensures timely delivery.',
+        name: 'Lê Thị Ngọc',
+        title: 'Founder & Product Manager',
+        description: 'Ngọc oversees product development and ensures timely delivery.',
         linkedin: '#',
         email: 'mailto:david@example.com', // Updated to be functional
         website: '#',
         // image: 'path/to/david_image.png', // Individual image
-    },
+    },{
+      name: 'Hoàng Bảo Huy',
+      title: 'Founder & Developer',
+      description: 'Bảo Huy supports developing application.',
+      linkedin: '#',
+      email: 'mailto:david@example.com', // Updated to be functional
+      website: '#',
+      // image: 'path/to/david_image.png', // Individual image
+  },
     // Add other team members similarly...
   ];
 function AboutPage() {

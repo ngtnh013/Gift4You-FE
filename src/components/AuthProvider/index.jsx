@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Create Auth Context
@@ -6,10 +6,15 @@ const AuthContext = createContext();
 
 // Provide Auth Context
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(() => {
+  const [auth, setAuth] = useState(null); // Start with null, then initialize from localStorage
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    return token ? { accessToken: token } : null;
-  });
+    if (token) {
+      setAuth({ accessToken: token, userId: localStorage.getItem("userId") });
+    }
+  }, []); // Only run on the initial mount
 
   const login = (userData, navigate) => {
     console.log("User logged in:", userData);
