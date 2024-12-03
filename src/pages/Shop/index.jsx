@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
 import ItemCard from "../../components/ItemCard";
 import { FaGift } from "react-icons/fa"; // Example icon, you can change this to any other icon
+import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
   const [templates, setTemplates] = useState([]);
@@ -10,6 +11,16 @@ const ShopPage = () => {
   const [page, setPage] = useState(0); // Pagination state
   const [totalPages, setTotalPages] = useState(0); // Total number of pages
   const { auth } = useAuth();
+  const navigate = useNavigate();
+
+   // Check if the user is logged in
+   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      // Redirect to login if not logged in
+      navigate("/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     const fetchTemplates = async () => {
