@@ -11,12 +11,12 @@ export default defineConfig({
       usePolling: true,
       interval: 100,
     },
-    proxy: {
+    proxy: process.env.NODE_ENV === "development" ? {
       "/api": {
-        target: "https://gift-4-you.onrender.com/api/",
+        target: "https://gift-4-you.onrender.com/api",  // The backend URL on Render
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), 
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-    },
+    } : {},
   },
 });

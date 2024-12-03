@@ -6,6 +6,7 @@ import { FaGift } from "react-icons/fa"; // Example icon, you can change this to
 import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0); // Pagination state
@@ -26,7 +27,7 @@ const ShopPage = () => {
     const fetchTemplates = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/v1/template?page=${page}&size=10`, {
+        const response = await axios.get(`${API_URL}/v1/template?page=${page}&size=10`, {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
             "Content-Type": "application/json",
@@ -40,7 +41,7 @@ const ShopPage = () => {
                 template.templateDetails.map(async (detail) => {
                   try {
                     const itemResponse = await axios.get(
-                      `/api/v1/inventory-items/${detail.inventoryItemId}`,
+                      `${API_URL}/v1/inventory-items/${detail.inventoryItemId}`,
                       {
                         headers: {
                           Authorization: `Bearer ${auth?.accessToken}`,
