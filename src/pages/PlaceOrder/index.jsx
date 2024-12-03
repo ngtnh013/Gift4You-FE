@@ -2,13 +2,49 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; 
 import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
+import gift1 from "../../assets/images/gift1.jpg";
+import gift2 from "../../assets/images/gift2.jpg";
+import gift3 from "../../assets/images/gift3.jpg";
+import gift4 from "../../assets/images/gift4.jpg";
+import gift5 from "../../assets/images/gift5.jpg";
+import gift6 from "../../assets/images/gift6.jpg";
+import gift7 from "../../assets/images/gift7.jpg";
+import gift8 from "../../assets/images/gift8.jpg";
+import gift9 from "../../assets/images/gift9.jpg";
+import gift10 from "../../assets/images/gift10.jpg";
+import gift11 from "../../assets/images/gift11.jpg";
+import gift12 from "../../assets/images/gift12.jpg";
+import gift13 from "../../assets/images/gift13.jpg";
+import gift14 from "../../assets/images/gift14.jpg";
+import gift15 from "../../assets/images/gift15.jpg";
+
 
 const PlaceOrder = () => {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
-  const { state } = useLocation();
-  const { template, selectedImage } = state;
+    const images = [
+      gift1,
+      gift2,
+      gift3,
+      gift4,
+      gift5,
+      gift6,
+      gift7,
+      gift8,
+      gift9,
+      gift10,
+      gift11,
+      gift12,
+      gift13,
+      gift14,
+      gift15,
+    ];
+
+    const { state } = useLocation();
+    const { template, selectedImageKey } = state;
+  
+    const selectedImage = images[selectedImageKey];
 
   const { auth } = useAuth(); 
   const navigate = useNavigate(); 
