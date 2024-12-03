@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import RegisterPageImage from "../../assets/LoginPageImage.png";
+import { useAuth } from "../../components/AuthProvider"; // Importing useAuth hook
+import { useNavigate } from "react-router-dom"; // Importing navigate hook
 
 function RegisterPage() {
+  const [loading, setLoading] = useState(false); // Track loading state
+  const { login } = useAuth(); // Accessing login function from AuthProvider
+  const navigate = useNavigate(); // To navigate user after successful login
+
   const {
     register,
     handleSubmit,
@@ -17,21 +23,41 @@ function RegisterPage() {
   // Submit handler
   const onSubmit = async (data) => {
     try {
+      setLoading(true); // Set loading state to true before the API call
+
       // Add default role to the data
-      const requestData = { ...data, role: "customer" };
+      const requestData = { ...data, userName: "hehe", role: "customer" };
 
-      // Call the API
-      const response = await axios.post("/api/v1/accounts", requestData);
+      // Step 1: Register the user
+      const registrationResponse = await axios.post("/api/v1/accounts", requestData);
 
-      console.log("Registration Successful:", response.data);
+      console.log("Registration Successful:", registrationResponse.data);
 
-      // Handle success (e.g., navigate to login or show a success message)
-      alert("Registration successful!");
+      // Step 2: Automatically login the user after successful registration
+      // We need to call the login API with the user's credentials (phone number and password)
+      const loginResponse = await axios.post("/api/v1/auth/login", {
+        phoneNumber: data.phoneNumber,
+        password: data.password,
+      });
+
+      console.log("Login Successful:", loginResponse.data);
+
+      // Step 3: Extract the access token and userId from the login response
+      const { accessToken, id } = loginResponse.data.data;
+
+      // Step 4: Call login function from context and store the access token and userId
+      login({ accessToken, id }, navigate);
+
+      // Step 5: Redirect user to the homepage or any desired page
+      navigate("/shop"); // Change this route as per your app's flow
+
     } catch (error) {
-      console.error("Registration failed:", error.response?.data || error.message);
-      
+      console.error("Registration or Login failed:", error.response?.data || error.message);
+
       // Handle error (e.g., show an error message to the user)
-      alert(error.response?.data?.message || "Registration failed. Please try again.");
+      alert(error.response?.data?.message || "Registration or Login failed. Please try again.");
+    } finally {
+      setLoading(false); // Reset loading state after the request completes
     }
   };
 
@@ -115,43 +141,24 @@ function RegisterPage() {
 
             {/* Phone Number */}
             <div className="mb-4">
-            <input
-              type="tel"
-              {...register("phoneNumber", {
-                required: "Phone number is required",
-                pattern: {
-                  value: /^0\d{9}$/,
-                  message: "Invalid phone number",
-                },
-              })}
-              className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-black"
-              placeholder="Phone Number (e.g., 0935217206)"
-              style={{ backgroundColor: "#FFE1BB" }}
-            />
-            {errors.phoneNumber && (
-              <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
-            )}
-          </div>
-
-            {/* Username */}
-            <div className="mb-4">
               <input
-                type="text"
-                {...register("userName", {
-                  required: "Username is required",
-                  minLength: {
-                    value: 3,
-                    message: "Username must be at least 3 characters",
+                type="tel"
+                {...register("phoneNumber", {
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^0\d{9}$/,
+                    message: "Invalid phone number",
                   },
                 })}
                 className="w-full px-4 py-2 border-b-2 border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                placeholder="Username"
+                placeholder="Phone Number (e.g., 0935217206)"
                 style={{ backgroundColor: "#FFE1BB" }}
               />
-              {errors.userName && (
-                <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>
+              {errors.phoneNumber && (
+                <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>
               )}
             </div>
+
 
             {/* Password */}
             <div className="mb-4">
@@ -195,10 +202,10 @@ function RegisterPage() {
 
             <button
               type="submit"
-              className="w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "#DB4444" }}
+              className={`w-full py-2 rounded-lg text-white transition-opacity hover:opacity-90 ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-500'}`}
+              disabled={loading}  // Disable button while loading
             >
-              Register
+              {loading ? "Loading..." : "Register"}  {/* Show Loading text */}
             </button>
           </form>
         </div>

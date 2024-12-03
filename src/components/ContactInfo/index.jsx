@@ -36,7 +36,7 @@ const ContactInfo = () => {
             <p className="text-base mb-4 text-gray-700">
               We are ready at all times to answer your questions about our service.
             </p>
-            <a href="https://facebook.com/gift4u" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold hover:text-blue-700">
+            <a href="https://www.facebook.com/profile.php?id=61566621830610" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold hover:text-blue-700">
               facebook.com/gift4u
             </a>
           </div>

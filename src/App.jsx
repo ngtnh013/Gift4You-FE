@@ -8,8 +8,9 @@ import ContactPage from "./pages/Contact";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import Footer from "./components/Footer";
-import ProductDetailForm from "./components/ProductDetailForm"
 import ProfilePage from "./pages/Profile";
+import PlaceOrder from "./pages/PlaceOrder";
+import ViewMyOrder from "./pages/ViewMyOrder";
 function App() {
   return (
     <>
@@ -21,8 +22,9 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/product/:id" element={<ProductDetailForm/>} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="view-my-order" element={<ViewMyOrder/>}/>
       </Routes>
       <Footer />
     </>

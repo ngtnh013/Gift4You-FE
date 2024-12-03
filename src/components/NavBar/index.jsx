@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from "react";
-import NavItem from "./NavItem";
+import React from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../AuthProvider";  // Ensure you're accessing the context here
+import NavItem from "./NavItem";
 import UserMenu from "./UserMenu";
-import { useAuth } from "../AuthProvider";
 
 function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const { auth } = useAuth();
+  const { auth } = useAuth();  // Directly use auth here
 
   const items = [
-    {
-      label: "Home",
-      path: "/",
-    },
-    {
-      label: "Shop",
-      path: "/shop",
-    },
-    {
-      label: "About",
-      path: "/about",
-    },
-    {
-      label: "Contact",
-      path: "/contact",
-    },
+    { label: "Home", path: "/" },
+    { label: "Shop", path: "/shop" },
+    { label: "About", path: "/about" },
+    { label: "Contact", path: "/contact" },
   ];
-
 
   return (
     <nav className="grid grid-cols-12 p-4 items-center">
@@ -46,7 +32,7 @@ function NavBar() {
         </ul>
       </div>
       <div className="col-span-3">
-          <UserMenu isLoggedIn={!!auth}/>
+        <UserMenu isLoggedIn={!!auth?.accessToken} />  {/* Pass actual logged-in state */}
       </div>
     </nav>
   );
