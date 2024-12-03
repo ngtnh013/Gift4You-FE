@@ -35,20 +35,15 @@ function RegisterPage() {
 
       console.log("Registration Successful:", registrationResponse.data);
 
-      // Step 2: Automatically login the user after successful registration
-      // We need to call the login API with the user's credentials (phone number and password)
-      const loginResponse = await axios.post(`${API_URL}/v1/auth/login`, {
-        phoneNumber: data.phoneNumber,
-        password: data.password,
-      });
+      const formData = {
+        phoneNumber: data.phoneNumber.trim(),
+        password: data.password.trim(),
+      };
 
-      console.log("Login Successful:", loginResponse.data);
 
-      // Step 3: Extract the access token and userId from the login response
-      const { accessToken, id } = loginResponse.data.data;
 
       // Step 4: Call login function from context and store the access token and userId
-      login({ accessToken, id }, navigate);
+      login(formData, navigate);
 
       // Step 5: Redirect user to the homepage or any desired page
       navigate("/shop"); // Change this route as per your app's flow
