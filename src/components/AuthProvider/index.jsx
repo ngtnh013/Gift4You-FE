@@ -1,33 +1,65 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-// Create Auth Context
 const AuthContext = createContext();
+
+// Function to get cookie value by key
+const getCookie = (name) => {
+  return Cookies.get(name);
+};
 
 // Provide Auth Context
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null); // Start with null, then initialize from localStorage
+  const [auth, setAuth] = useState(null); // Track auth state
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
+  // Check if the user is authenticated on initial mount
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setAuth({ accessToken: token, userId: localStorage.getItem("userId") });
+    const accessToken = getCookie("accessToken");
+    const userId = getCookie("userId");
+    
+    if (accessToken && userId) {
+      setAuth({ accessToken, userId });
     }
-  }, []); // Only run on the initial mount
+  }, []);
 
-  const login = (userData, navigate) => {
-    console.log("User logged in:", userData);
-    setAuth({ accessToken: userData.accessToken, userId: userData.id });
-    localStorage.setItem("accessToken", userData.accessToken);
-    localStorage.setItem("userId", userData.id);
-    navigate("/shop");
+  // Login function
+  const login = async (data, navigate) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/v1/auth/login`,
+        {
+          phoneNumber: data.phoneNumber.trim(),
+          password: data.password.trim(),
+        },
+        { withCredentials: true } // Automatically manage cookies on the server-side
+      );
+
+      console.log("Log in success", response.data);
+      
+
+      const { accessToken, id } = response.data.data;
+
+      // Store accessToken and userId in cookies
+      Cookies.set("accessToken", accessToken, { expires: 7, secure: true, sameSite: "Strict" });
+      Cookies.set("userId", id, { expires: 7, secure: true, sameSite: "Strict" });
+
+      setAuth({ accessToken, userId: id });
+      navigate("/shop"); // Redirect to shop or other protected route
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      alert("Login failed. Please check your credentials.");
+    }
   };
 
+  // Logout function
   const logout = (navigate) => {
+    Cookies.remove("accessToken");
+    Cookies.remove("userId");
     setAuth(null);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
     navigate("/login");
   };
 

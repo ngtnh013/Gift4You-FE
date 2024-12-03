@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import ProfilePage from "./pages/Profile";
 import PlaceOrder from "./pages/PlaceOrder";
 import ViewMyOrder from "./pages/ViewMyOrder";
+import CustomGift from "./pages/CustomGift";
 function App() {
   return (
     <>
@@ -24,7 +25,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/place-order" element={<PlaceOrder />} />
-        <Route path="view-my-order" element={<ViewMyOrder/>}/>
+        <Route path="/view-my-order" element={<ViewMyOrder/>}/>
+        <Route path="/custom-gift" element={<CustomGift/>}/>
       </Routes>
       <Footer />
     </>
