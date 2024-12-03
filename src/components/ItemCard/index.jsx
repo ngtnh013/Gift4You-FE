@@ -2,31 +2,46 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
+import gift1 from "../../assets/images/gift1.jpg";
+import gift2 from "../../assets/images/gift2.jpg";
+import gift3 from "../../assets/images/gift3.jpg";
+import gift4 from "../../assets/images/gift4.jpg";
+import gift5 from "../../assets/images/gift5.jpg";
+import gift6 from "../../assets/images/gift6.jpg";
+import gift7 from "../../assets/images/gift7.jpg";
+import gift8 from "../../assets/images/gift8.jpg";
+import gift9 from "../../assets/images/gift9.jpg";
+import gift10 from "../../assets/images/gift10.jpg";
+import gift11 from "../../assets/images/gift11.jpg";
+import gift12 from "../../assets/images/gift12.jpg";
+import gift13 from "../../assets/images/gift13.jpg";
+import gift14 from "../../assets/images/gift14.jpg";
+import gift15 from "../../assets/images/gift15.jpg";
 
 // ItemCard Component
 const ItemCard = ({ item }) => {
-    const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL;
   const [inventoryDetails, setInventoryDetails] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const { auth } = useAuth();
   const navigate = useNavigate();
 
   const randomImages = [
-    "/images/gift1.jpg",
-    "/images/gift2.jpg",
-    "/images/gift3.jpg",
-    "/images/gift4.jpg",
-    "/images/gift5.jpg",
-    "/images/gift6.jpg",
-    "/images/gift7.jpg",
-    "/images/gift8.jpg",
-    "/images/gift9.jpg",
-    "/images/gift10.jpg",
-    "/images/gift11.jpg",
-    "/images/gift12.jpg",
-    "/images/gift13.jpg",
-    "/images/gift14.jpg",
-    "/images/gift15.jpg",
+    gift1,
+    gift2,
+    gift3,
+    gift4,
+    gift5,
+    gift6,
+    gift7,
+    gift8,
+    gift9,
+    gift10,
+    gift11,
+    gift12,
+    gift13,
+    gift14,
+    gift15,
   ];
 
   const [imageUrl, setImageUrl] = useState("");
@@ -34,7 +49,8 @@ const ItemCard = ({ item }) => {
   useEffect(() => {
     // Calculate the image URL only once when the component is mounted
     if (item.urlImg === "random") {
-      const randomImage = randomImages[Math.floor(Math.random() * randomImages.length)];
+      const randomImage =
+        randomImages[Math.floor(Math.random() * randomImages.length)];
       setImageUrl(randomImage);
     } else {
       setImageUrl(item.urlImg);
@@ -79,8 +95,12 @@ const ItemCard = ({ item }) => {
 
   const handlePlaceOrder = () => {
     // Pass item data and imageUrl to the PlaceOrder component
+    const selectedImageKey = "gift1"; // Replace with logic to select an image dynamically
     navigate("/place-order", {
-      state: { template: item, selectedImage: imageUrl },
+      state: {
+        template: item,
+        selectedImageKey,
+      },
     });
   };
 
@@ -95,7 +115,9 @@ const ItemCard = ({ item }) => {
       <p className="text-gray-700 font-semibold mt-2">
         Price: {item.price.toLocaleString("en-US")} VND
       </p>
-      <p className="text-gray-500 text-sm mt-1">Total Sales: {item.totalSales}</p>
+      <p className="text-gray-500 text-sm mt-1">
+        Total Sales: {item.totalSales}
+      </p>
 
       <div className="mt-4 text-sm w-full">
         <button
