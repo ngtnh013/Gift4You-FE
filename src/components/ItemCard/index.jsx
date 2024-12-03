@@ -12,14 +12,21 @@ const ItemCard = ({ item }) => {
   const navigate = useNavigate();
 
   const randomImages = [
-    "/src/assets/images/gift1.jpg",
-    "/src/assets/images/gift2.jpg",
-    "/src/assets/images/gift3.jpg",
-    "/src/assets/images/gift4.jpg",
-    "/src/assets/images/gift5.jpg",
-    "/src/assets/images/gift6.jpg",
-    "/src/assets/images/gift7.jpg",
-    "/src/assets/images/gift8.jpg",
+    "/images/gift1.jpg",
+    "/images/gift2.jpg",
+    "/images/gift3.jpg",
+    "/images/gift4.jpg",
+    "/images/gift5.jpg",
+    "/images/gift6.jpg",
+    "/images/gift7.jpg",
+    "/images/gift8.jpg",
+    "/images/gift9.jpg",
+    "/images/gift10.jpg",
+    "/images/gift11.jpg",
+    "/images/gift12.jpg",
+    "/images/gift13.jpg",
+    "/images/gift14.jpg",
+    "/images/gift15.jpg",
   ];
 
   const [imageUrl, setImageUrl] = useState("");
