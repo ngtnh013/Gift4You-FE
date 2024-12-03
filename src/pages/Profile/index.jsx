@@ -4,6 +4,8 @@ import { useAuth } from "../../components/AuthProvider";
 import DefaultAvatar from "../../assets/character.png"; // Replace with your default avatar image path
 
 function ProfilePage() {
+
+  const API_URL = import.meta.env.VITE_API_URL;
   const { auth } = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`/api/v1/accounts/${auth?.userId}`, {
+        const response = await axios.get(`${API_URL}/v1/accounts/${auth?.userId}`, {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
           },
@@ -56,7 +58,7 @@ function ProfilePage() {
   const handleSave = async () => {
     try {
       const response = await axios.put(
-        `/api/v1/accounts/${auth?.userId}`,
+        `${API_URL}/v1/accounts/${auth?.userId}`,
         formData,
         {
           headers: {

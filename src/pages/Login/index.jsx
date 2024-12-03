@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../components/AuthProvider";
 
 function LoginPage() {
+
+  const API_URL = import.meta.env.VITE_API_URL;
+
+
   const [loading, setLoading] = useState(false);  // Track loading state
   const {
     register,
@@ -29,7 +33,7 @@ function LoginPage() {
       console.log(formData);
 
       const response = await axios.post(
-        "/api/v1/auth/login",
+        `${API_URL}/v1/auth/login`,
         {
           phoneNumber: data.phoneNumber.trim(),
           password: data.password.trim(),

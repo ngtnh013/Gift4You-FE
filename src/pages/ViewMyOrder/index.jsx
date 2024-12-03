@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
 
 const ViewMyOrder = () => {
+    const API_URL = import.meta.env.VITE_API_URL;
   const { auth } = useAuth();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ const ViewMyOrder = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `/api/v1/accounts/${auth?.userId}/orders?page=${page}&size=10`,
+          `${API_URL}/v1/accounts/${auth?.userId}/orders?page=${page}&size=10`,
           {
             headers: {
               Authorization: `Bearer ${auth?.accessToken}`,

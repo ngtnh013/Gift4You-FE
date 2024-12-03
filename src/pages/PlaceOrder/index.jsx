@@ -4,6 +4,9 @@ import axios from "axios";
 import { useAuth } from "../../components/AuthProvider";
 
 const PlaceOrder = () => {
+
+    const API_URL = import.meta.env.VITE_API_URL;
+
   const { state } = useLocation();
   const { template, selectedImage } = state;
 
@@ -22,7 +25,7 @@ const PlaceOrder = () => {
     const fetchTemplateDetails = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/v1/template/${template.id}`, {
+        const response = await axios.get(`${API_URL}/v1/template/${template.id}`, {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
             "Content-Type": "application/json",
@@ -35,7 +38,7 @@ const PlaceOrder = () => {
             response.data.data.templateDetails.map(async (detail) => {
               try {
                 const itemResponse = await axios.get(
-                  `/api/v1/inventory-items/${detail.inventoryItemId}`,
+                  `${API_URL}/v1/inventory-items/${detail.inventoryItemId}`,
                   {
                     headers: {
                       Authorization: `Bearer ${auth?.accessToken}`,
@@ -70,7 +73,7 @@ const PlaceOrder = () => {
   useEffect(() => {
     const fetchUserPhoneNumber = async () => {
       try {
-        const response = await axios.get(`/api/v1/accounts/${auth?.userId}`, {
+        const response = await axios.get(`${API_URL}/v1/accounts/${auth?.userId}`, {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
             "Content-Type": "application/json",
@@ -115,7 +118,7 @@ const PlaceOrder = () => {
     };
 
     try {
-      const response = await axios.post("/api/v1/orders", orderData, {
+      const response = await axios.post(`${API_URL}/v1/orders`, orderData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${auth?.accessToken}`,

@@ -5,6 +5,7 @@ import { useAuth } from "../../components/AuthProvider";
 
 // ItemCard Component
 const ItemCard = ({ item }) => {
+    const API_URL = import.meta.env.VITE_API_URL;
   const [inventoryDetails, setInventoryDetails] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const { auth } = useAuth();
@@ -40,7 +41,7 @@ const ItemCard = ({ item }) => {
         item.templateDetails.map(async (detail) => {
           try {
             const response = await axios.get(
-              `/api/v1/inventory-items/${detail.inventoryItemId}`,
+              `${API_URL}/v1/inventory-items/${detail.inventoryItemId}`,
               {
                 headers: {
                   Authorization: `Bearer ${auth?.accessToken}`,

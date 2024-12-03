@@ -6,6 +6,8 @@ import { useAuth } from "../../components/AuthProvider"; // Importing useAuth ho
 import { useNavigate } from "react-router-dom"; // Importing navigate hook
 
 function RegisterPage() {
+
+  const API_URL = import.meta.env.VITE_API_URL;
   const [loading, setLoading] = useState(false); // Track loading state
   const { login } = useAuth(); // Accessing login function from AuthProvider
   const navigate = useNavigate(); // To navigate user after successful login
@@ -29,13 +31,13 @@ function RegisterPage() {
       const requestData = { ...data, userName: "hehe", role: "customer" };
 
       // Step 1: Register the user
-      const registrationResponse = await axios.post("/api/v1/accounts", requestData);
+      const registrationResponse = await axios.post(`${API_URL}/v1/accounts`, requestData);
 
       console.log("Registration Successful:", registrationResponse.data);
 
       // Step 2: Automatically login the user after successful registration
       // We need to call the login API with the user's credentials (phone number and password)
-      const loginResponse = await axios.post("/api/v1/auth/login", {
+      const loginResponse = await axios.post(`${API_URL}/v1/auth/login`, {
         phoneNumber: data.phoneNumber,
         password: data.password,
       });
